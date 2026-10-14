@@ -1,84 +1,99 @@
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MapVision · Traffic Vision Studio</title>
-<style>
-:root{font-family:Inter,system-ui,Arial,sans-serif;color:#e7f0ff;background:#090f1d;--panel:#151e30;--line:#293b55;--cyan:#3fe5ef}
-*{box-sizing:border-box}body{margin:0}header{padding:14px 22px;display:flex;align-items:center;justify-content:space-between;background:#111a2a;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}h1{font-size:20px;margin:0}small,.muted{color:#9bb0cb}header small{display:block;margin-top:3px;font-size:11px}button,select,input{font:inherit}button{padding:9px 13px;border-radius:9px;border:1px solid #395473;background:#20334f;color:#e9f6ff;cursor:pointer}button:hover{background:#2d5373}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--cyan)}button.primary{background:#076a83;border-color:#19bcd2}.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-main{display:grid;grid-template-columns:265px minmax(300px,1fr) 280px;min-height:calc(100vh - 67px)}aside{padding:17px;background:var(--panel);border-right:1px solid var(--line);min-width:0}aside:last-child{border-right:0;border-left:1px solid var(--line)}h2{font-size:14px;margin:6px 0 18px}h3{font-size:11px;letter-spacing:1.2px;color:#9aafcf;text-transform:uppercase;margin:25px 0 12px}
-label.field{display:grid;gap:8px;margin:14px 0;color:#c3d4eb;font-size:12px}input[type=range]{accent-color:var(--cyan);width:100%}select{background:#0e192b;border:1px solid #354965;border-radius:7px;color:#fff;padding:9px;width:100%}.check{display:flex;justify-content:space-between;gap:8px;margin:15px 0;font-size:12px}.check input{accent-color:var(--cyan)}.workspace{padding:16px;min-width:0;background:radial-gradient(circle at center,#1d2e48,#0a1323)}.mapbox{position:relative;width:100%;max-width:980px;margin:auto;background:#111632;border:5px solid #e7ecf4;box-shadow:0 16px 40px #0009;aspect-ratio:1.24}canvas{display:block;width:100%;height:100%}.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}.kpi{border:1px solid #344960;background:#14243a;border-radius:10px;padding:11px}.kpi span{font-size:11px;color:#9fb5cf}.kpi b{display:block;font-size:20px;margin-top:4px}.row{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid #2a3a52;padding:10px 0;font-size:12px}.row b{color:#59e8f6}.mapnote{font-size:11px;color:#a6bad4;margin-top:10px;line-height:1.5}.tag{padding:4px 8px;border-radius:5px;background:#174757;color:#74f9f0;font-size:11px}table{border-collapse:collapse;width:100%;font-size:11px}th,td{border-bottom:1px solid #2d3c54;text-align:left;padding:8px 4px}th{color:#adc6df}.scroll{max-height:330px;overflow:auto}.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:#bad1e7;margin-top:12px}.legend span:before{content:'●';color:var(--c);margin-right:5px}@media(max-width:1120px){main{grid-template-columns:230px 1fr}aside:last-child{grid-column:1/-1;border-left:0;border-top:1px solid var(--line)}}@media(max-width:680px){main{display:flex;flex-direction:column}.workspace{order:0}aside{order:1}.kpis{grid-template-columns:repeat(2,1fr)}}
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0a1324">
+<title>MapVision Lab | Long Ngo · MIT</title><style>
+:root{font:14px system-ui,Arial;color:#ecf3ff;background:#08111f;--panel:#101e31;--line:#2a3d55;--cyan:#39e1eb}*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button{color:#e9f6ff;border:1px solid #35516d;background:#223850;border-radius:8px;padding:9px 11px;cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--cyan)}button:hover{background:#335371}button.primary{background:#08788b;border-color:#30c1d0}header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 18px;background:#102039;border-bottom:1px solid var(--line)}h1{font-size:19px;margin:0}h1 span{color:var(--cyan)}.sub{font-size:11px;color:#9fb6d3}.actions{display:flex;gap:7px;flex-wrap:wrap}main{display:grid;grid-template-columns:248px minmax(0,1fr) 258px;min-height:calc(100vh - 65px)}aside{padding:15px;background:var(--panel);min-width:0;border-right:1px solid var(--line)}aside:last-child{border-right:0;border-left:1px solid var(--line)}h2{font-size:14px;margin:8px 0 18px}h3{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#95aecc;margin:22px 0 10px}label{display:grid;gap:7px;margin:12px 0;color:#cad8ed;font-size:12px}input[type=range]{width:100%;accent-color:#3de1ed}select{color:white;background:#0b1b2c;border:1px solid #36516d;border-radius:7px;padding:9px}.note{font-size:11px;color:#9ab1cd;line-height:1.6}.center{padding:14px;min-width:0}.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:12px}.kpi{background:#14273f;border:1px solid #2b4764;border-radius:10px;padding:9px}.kpi b{display:block;font-size:19px;color:#64e6ed}.kpi span{font-size:10px;color:#a6bcd4}.surface{position:relative;background:#17253a;border:1px solid #48627d;border-radius:12px;overflow:hidden}canvas#map{width:100%;height:auto;display:block;aspect-ratio:1.5;cursor:crosshair}#hover{position:absolute;left:10px;bottom:8px;background:#09192fd9;color:#c7dafa;padding:6px 8px;border-radius:6px;font:11px monospace;pointer-events:none}.row{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #293e56;padding:10px 0;font-size:12px}.row b{color:#5be5ed}#chart{height:145px;width:100%;display:block;background:#101d2e;border:1px solid #29415a;border-radius:9px;margin-top:10px}.legend{display:flex;flex-wrap:wrap;gap:12px;margin:9px 0;font-size:11px;color:#abbed5}.legend i{display:inline-block;height:9px;width:9px;border-radius:100%;margin-right:5px}.badge{display:inline-block;background:#164f59;border-radius:6px;padding:4px 7px;font-size:10px;color:#71eff4}.rightlist{max-height:260px;overflow:auto}table{border-collapse:collapse;width:100%;font-size:11px}td,th{padding:7px 3px;text-align:left;border-bottom:1px solid #2a3b4d}th{color:#93b3d0}.footer{font-size:11px;color:#a5b6cd;padding-top:13px;line-height:1.6}.switch{display:flex;justify-content:space-between;align-items:center}.switch input{accent-color:#46dcec}@media(max-width:1120px){main{grid-template-columns:220px 1fr}aside:last-child{grid-column:1/-1;border-left:0;border-top:1px solid var(--line)}}@media(max-width:680px){main{display:flex;flex-direction:column}.center{order:0}aside{order:1}.kpis{grid-template-columns:repeat(3,1fr)}}
 </style></head><body>
-<header><div><h1>◈ Map<span style="color:#46e0f6">Vision</span> <span class="tag">TRAFFIC VISION</span></h1><small>Vehicle tracking · Road contact events · Camera-to-map concept</small></div>
-<div class="actions"><button id="play" class="primary">⏸ Tạm dừng</button><button id="restart">↻ Chạy lại</button><button id="exportCSV">↓ CSV</button><button id="exportJSON">↓ JSON</button><button id="exportPNG">↓ PNG</button></div></header>
-<main><aside><h2>⚙ Điều khiển mô phỏng</h2>
-<label class="field">Số xe <strong id="carsLabel">10</strong><input id="cars" type="range" min="1" max="50" value="10"></label>
-<label class="field">Hệ số tốc độ <strong id="speedLabel">1.0×</strong><input id="speed" type="range" min="1" max="50" value="10"></label>
-<label class="field">Ngưỡng xác nhận dừng (giây) <strong id="dwellLabel">1.2 s</strong><input id="dwell" type="range" min="2" max="50" value="12"></label>
-<h3>Lớp hiển thị</h3>
-<label class="check">Xe neon và đèn pha<input type="checkbox" id="neon" checked></label>
-<label class="check">Vệt hành trình<input type="checkbox" id="trails" checked></label>
-<label class="check">Vùng nút giao / điểm dừng<input type="checkbox" id="zones" checked></label>
-<label class="check">Lưới bản đồ<input type="checkbox" id="grid" checked></label>
-<h3>Trình biên tập tuyến</h3>
-<button id="edit">＋ Thêm điểm tuyến</button> <button id="undo">↶ Hoàn tác</button>
-<p class="mapnote" id="editNote">Bấm “Thêm điểm tuyến”, sau đó nhấp các điểm trên bản đồ để tạo tuyến. Nhấn nút lần nữa để kết thúc.</p>
-<button id="saveRoute">↓ Lưu tuyến JSON</button> <button id="loadRoute">↑ Nhập tuyến</button><input id="upload" type="file" accept=".json,application/json" hidden>
-<h3>Nguyên lý</h3><p class="mapnote">Các xe có ID ổn định, di chuyển theo chiều dài tuyến trong một canvas cố định. Vùng dừng sử dụng ngưỡng vào/ra khác nhau (hysteresis) và thời gian cư trú (dwell) để tránh ghi nhận sự kiện giả.</p>
+<header><div><h1>◈ Map<span>Vision</span> <span class="badge">RESEARCH LAB 2.0</span></h1><div class="sub">Mô phỏng vi mô · GIS giả định WGS84 · Tất cả xử lý trong trình duyệt</div></div><div class="actions"><button class="primary" id="play">⏸ Tạm dừng</button><button id="reset">↻ Khởi tạo</button><button id="csv">↓ CSV</button><button id="geojson">↓ GeoJSON</button><button id="json">↓ JSON</button><button id="png">↓ PNG</button></div></header>
+<main><aside><h2>⚙ Thiết lập kịch bản</h2>
+<label>Phương tiện <b id="nText">60 xe</b><input type="range" id="n" min="10" max="150" step="10" value="60"></label>
+<label>Lưu lượng sinh xe <b id="flowText">600 xe/giờ</b><input type="range" id="flow" min="100" max="1800" step="100" value="600"></label>
+<label>Chu kỳ đèn <b id="cycleText">60 giây</b><input type="range" id="cycle" min="30" max="120" step="10" value="60"></label>
+<label>Tỷ lệ xanh hướng Đông–Tây <b id="greenText">50%</b><input type="range" id="green" min="20" max="80" step="5" value="50"></label>
+<label>Tốc độ phát mô phỏng<select id="timeScale"><option value="1">1× thời gian thực</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option></select></label>
+<label>Kịch bản<select id="scenario"><option value="baseline">Bình thường</option><option value="rush">Giờ cao điểm (tăng nhu cầu)</option><option value="flood">Ngập đường giả định (giới hạn tốc độ)</option></select></label>
+<h3>Lớp bản đồ</h3>
+<label class="switch">Lưới tọa độ WGS84 <input id="grid" type="checkbox" checked></label>
+<label class="switch">Vệt xe neon <input id="trail" type="checkbox" checked></label>
+<label class="switch">Các điểm quan sát <input id="points" type="checkbox" checked></label>
+<label class="switch">Thông tin ID xe <input id="ids" type="checkbox"></label>
+<h3>Chế độ băng thông thấp</h3>
+<p class="note">Không tải tile bản đồ, không CDN, không font ngoài, không AI API. Mạng đường GIS được sinh cục bộ dưới dạng tọa độ địa lý giả định tại khu vực Vĩnh Long. Không được sử dụng để định vị thực tế.</p>
+<button id="report">↓ Báo cáo tóm tắt</button>
 </aside>
-<section class="workspace">
-<div class="kpis"><div class="kpi"><span>ĐANG THEO DÕI</span><b id="kCars">10 xe</b></div><div class="kpi"><span>THỜI GIAN MÔ PHỎNG</span><b id="kTime">00:00</b></div><div class="kpi"><span>LƯỢT DỪNG XÁC NHẬN</span><b id="kStops">0</b></div><div class="kpi"><span>TỐC ĐỘ TRUNG BÌNH</span><b id="kSpeed">0 km/h</b></div></div>
-<div class="mapbox"><canvas id="map" width="1240" height="1000" aria-label="Bản đồ giao thông giả lập với xe chuyển động"></canvas></div>
-<div class="legend"><span style="--c:#40ecff">Xe di chuyển</span><span style="--c:#ffbd4e">Xe đang dừng</span><span style="--c:#ff4c82">Nút giao</span><span style="--c:#c4cbff">Ranh giới giả lập</span></div>
-<p class="mapnote">Dữ liệu mô phỏng · Hệ tọa độ chuẩn hóa 0–1, không phải vị trí GPS thực · Không có mô hình AI nhận dạng video chạy ở chế độ này.</p></section>
-<aside><h2>◈ Phân tích hành trình</h2><div class="row"><span>Số tuyến</span><b id="kRoutes">3</b></div><div class="row"><span>Nút quan sát</span><b>3</b></div><div class="row"><span>Sự kiện đã ghi</span><b id="kEvents">0</b></div>
-<h3>Trạng thái phương tiện</h3><div class="scroll"><table><thead><tr><th>ID</th><th>Vận tốc</th><th>Trạng thái</th></tr></thead><tbody id="vehicles"></tbody></table></div>
-<h3>Sự kiện mới nhất</h3><div id="events" class="mapnote">Chưa có sự kiện.</div>
-<h3>Pipeline cho video thực</h3><p class="mapnote">1. Camera calibration / homography<br>2. Road segmentation & stabilized canvas<br>3. Vehicle detection + multi-object tracking<br>4. Map registration & trajectory smoothing<br>5. Geofence hysteresis + dwell<br>6. Travel-time and trip comparison</p>
-<p class="mapnote">Long Ngo thiết kế · Module mô phỏng MIT 2026. Mã nghiên cứu có sẵn trong kho giữ giấy phép Apache-2.0 riêng.</p>
+<section class="center">
+<div class="kpis"><div class="kpi"><span>XE HOẠT ĐỘNG</span><b id="kN">0</b></div><div class="kpi"><span>TỐC ĐỘ TB</span><b id="kV">0</b></div><div class="kpi"><span>XE XẾP HÀNG</span><b id="kQ">0</b></div><div class="kpi"><span>XE QUA NÚT</span><b id="kPassed">0</b></div><div class="kpi"><span>GIỜ MÔ PHỎNG</span><b id="kTime">00:00</b></div></div>
+<div class="surface"><canvas id="map" width="1200" height="800"></canvas><div id="hover">Vĩnh Long · tọa độ giả định · EPSG:4326</div></div>
+<div class="legend"><span><i style="background:#41e9fa"></i>Xe di chuyển</span><span><i style="background:#ffb54b"></i>Xe chờ</span><span><i style="background:#ed6884"></i>Đèn đỏ</span><span><i style="background:#69dd95"></i>Đèn xanh</span></div>
+<canvas id="chart" width="1080" height="220" aria-label="Biểu đồ lịch sử tốc độ và hàng chờ"></canvas>
+<p class="note">Các thước đo được tính theo đồng hồ mô phỏng bước cố định 0,1 giây. Tọa độ WGS84 là tọa độ minh họa, chưa sử dụng dữ liệu đường khảo sát thực tế. Giá trị km/h được suy ra theo mét trên hệ phẳng cục bộ giả định.</p></section>
+<aside><h2>◈ Phân tích và kiểm soát</h2>
+<div class="row"><span>Tình trạng đèn Đông–Tây</span><b id="sigEW">XANH</b></div><div class="row"><span>Tình trạng đèn Bắc–Nam</span><b id="sigNS">ĐỎ</b></div><div class="row"><span>Xe hoàn thành hành trình</span><b id="complete">0</b></div><div class="row"><span>Thời gian chờ tích lũy</span><b id="wait">0 s</b></div><div class="row"><span>Mật độ xe minh họa</span><b id="density">0 xe/km</b></div>
+<h3>Đội xe và trạng thái</h3><div class="rightlist"><table><thead><tr><th>ID</th><th>km/h</th><th>Hướng</th></tr></thead><tbody id="rows"></tbody></table></div>
+<h3>Kiến trúc thực thi</h3><p class="note">Mạng đường dạng đồ thị · GPS/WGS84 giả định · IDM một làn · Tín hiệu 2 pha có thời gian vàng · Fixed-step simulation · Rendering tách biệt · CSV/JSON/GeoJSON.</p>
+<h3>Giới hạn khoa học</h3><p class="note">IDM là mô hình bám xe giản lược, chưa có đổi làn MOBIL, đèn rẽ, va chạm đa hướng, hiệu chỉnh lưu lượng hay so sánh với quan trắc. Bản đồ mẫu không đại diện điều kiện giao thông thực tại Vĩnh Long.</p>
+<div class="footer">Long Ngo thiết kế · MIT © 2026<br>MapVision Traffic Research Lab</div>
 </aside></main>
 <script>
 'use strict';
-const $=id=>document.getElementById(id), c=$('map'),ctx=c.getContext('2d'), W=1240,H=1000;
-const defaults=[[[.12,.82],[.27,.72],[.39,.62],[.46,.46],[.59,.36],[.75,.25],[.9,.12]],[[.08,.30],[.24,.37],[.4,.42],[.56,.52],[.72,.59],[.91,.70]],[[.28,.08],[.34,.24],[.41,.42],[.57,.58],[.71,.75],[.83,.92]]];
-let routes=structuredClone(defaults),cars=[],events=[],time=0,last=0,playing=true,editing=false,custom=[],lastStats=0;
-const zones=[{id:'N1',x:.41,y:.42,r:.072},{id:'N2',x:.57,y:.57,r:.064},{id:'N3',x:.28,y:.72,r:.060}];
-const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
-function geometry(points){let sums=[0];for(let i=1;i<points.length;i++)sums.push(sums.at(-1)+Math.hypot((points[i][0]-points[i-1][0])*W,(points[i][1]-points[i-1][1])*H));return {sums,total:sums.at(-1)||1};}
-function sample(points,dist){let {sums,total}=geometry(points);dist=((dist%total)+total)%total;let i=1;while(i<sums.length-1&&sums[i]<dist)i++;let a=points[i-1],b=points[i],f=(dist-sums[i-1])/(sums[i]-sums[i-1]||1);return {x:(a[0]+(b[0]-a[0])*f)*W,y:(a[1]+(b[1]-a[1])*f)*H,a:Math.atan2((b[1]-a[1])*H,(b[0]-a[0])*W)};}
-function emit(car,type,zone){events.push({t:+time.toFixed(2),vehicle_id:car.id,event:type,zone:zone||null,speed_kmh:+car.v.toFixed(1)});if(events.length>5000)events.shift();}
-function spawn(){const count=+$('cars').value;cars=Array.from({length:count},(_,i)=>({id:'XE-'+String(i+1).padStart(3,'0'),route:i%routes.length,dist:geometry(routes[i%routes.length]).total*((i*.6180339)%1),v:25+i%7*4,base:27+i%8*3,zone:null,dwell:0,confirmed:false,completed:0,tail:[],hue:(i*39+175)%360}));events=[];time=0;last=0;lastStats=0;}
-function update(dt){time+=dt;const speed=+$('speed').value/10;for(const car of cars){const route=routes[car.route%routes.length],g=geometry(route),pos=sample(route,car.dist);let closest=null,min=Infinity;for(const z of zones){let d=Math.hypot(pos.x-z.x*W,pos.y-z.y*H);if(d<min){min=d;closest=z;}}
-const enter=closest.r*W*.75,release=closest.r*W*1.15;
-let same=car.zone&&closest.id===car.zone&&min<release;
-if(!car.zone&&min<enter){car.zone=closest.id;car.dwell=0;car.confirmed=false;}
-else if(car.zone&&!same){if(car.confirmed)emit(car,'exit',car.zone);car.zone=null;car.dwell=0;car.confirmed=false;}
-if(car.zone){car.dwell+=dt;if(car.dwell>=+$('dwell').value/10&&!car.confirmed){car.confirmed=true;emit(car,'stop',car.zone);}}
-const stop=car.zone&&min<enter&&Math.sin(time*.7+parseInt(car.id.slice(3))*1.7)>.1;
-let target=stop?0:car.base;car.v+=(target-car.v)*Math.min(1,dt*(stop?2.5:1.6));let pixelPerKm=2.6;car.dist+=car.v*pixelPerKm*dt*speed;if(car.dist>=g.total){car.dist%=g.total;car.completed++;emit(car,'trip_complete');}
-const p=sample(route,car.dist);car.tail.push([p.x,p.y]);if(car.tail.length>36)car.tail.shift();}}
-function poly(points){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p[0]*W,p[1]*H):ctx.moveTo(p[0]*W,p[1]*H));}
-function draw(){ctx.fillStyle='#170f30';ctx.fillRect(0,0,W,H);
-if($('grid').checked){ctx.strokeStyle='#58477566';ctx.lineWidth=1;for(let x=0;x<W;x+=62){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}for(let y=0;y<H;y+=50){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}}
-ctx.strokeStyle='#afa7dd77';ctx.setLineDash([13,9]);ctx.lineWidth=3;poly([[.11,.10],[.34,.06],[.76,.12],[.94,.33],[.87,.87],[.56,.96],[.20,.88],[.08,.47],[.11,.10]]);ctx.stroke();ctx.setLineDash([]);
-routes.forEach((r,i)=>{ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#0a1527';ctx.lineWidth=21;poly(r);ctx.stroke();ctx.strokeStyle=['#ef994f','#80c2d1','#bc83ef'][i%3];ctx.lineWidth=7;ctx.shadowBlur=10;ctx.shadowColor=ctx.strokeStyle;ctx.stroke();ctx.shadowBlur=0;ctx.strokeStyle='#ffffff63';ctx.setLineDash([8,24]);ctx.lineWidth=1.5;ctx.stroke();ctx.setLineDash([])});
-if($('zones').checked)zones.forEach(z=>{let x=z.x*W,y=z.y*H;const a=ctx.createRadialGradient(x,y,2,x,y,z.r*W);a.addColorStop(0,'#f74c8888');a.addColorStop(1,'#fa4c8800');ctx.fillStyle=a;ctx.beginPath();ctx.arc(x,y,z.r*W,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#ff6d9aaa';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#ffdae5';ctx.font='bold 18px system-ui';ctx.fillText(z.id,x+12,y-12)});
-cars.forEach(car=>{let route=routes[car.route%routes.length],p=sample(route,car.dist),h=car.v<5?38:car.hue;if($('trails').checked&&car.tail.length>2){for(let i=1;i<car.tail.length;i++){ctx.beginPath();ctx.moveTo(...car.tail[i-1]);ctx.lineTo(...car.tail[i]);ctx.strokeStyle='hsla('+h+',100%,65%,'+(i/car.tail.length*.7)+')';ctx.lineWidth=2+i/car.tail.length*4;ctx.stroke()}}
-ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.a);if($('neon').checked){ctx.globalCompositeOperation='lighter';ctx.shadowColor='hsl('+h+',100%,65%)';ctx.shadowBlur=27;let beam=ctx.createLinearGradient(0,0,65,0);beam.addColorStop(0,'#d4faff83');beam.addColorStop(1,'#d4faff00');ctx.fillStyle=beam;ctx.beginPath();ctx.moveTo(11,-6);ctx.lineTo(65,-22);ctx.lineTo(65,22);ctx.lineTo(11,6);ctx.fill()}
-ctx.fillStyle='hsl('+h+',95%,65%)';ctx.beginPath();ctx.roundRect(-14,-8,28,16,4);ctx.fill();ctx.fillStyle='#ddf9ff';ctx.fillRect(-5,-5,10,10);ctx.fillStyle='#fff';ctx.fillRect(11,-6,4,4);ctx.fillRect(11,2,4,4);ctx.restore()});
-ctx.fillStyle='#eaf2ff';ctx.textAlign='center';ctx.font='bold 27px system-ui';ctx.fillText('MAPVISION · GIAO THÔNG ĐỘNG',W/2,45);ctx.font='14px system-ui';ctx.fillText('Đồ họa sơ đồ · Phân tích phương tiện theo thời gian',W/2,71);ctx.textAlign='left';ctx.font='17px system-ui';ctx.fillText('BẮC ↑',W-112,115);ctx.font='13px system-ui';ctx.fillText('TỌA ĐỘ GIẢ LẬP 0–1',35,H-30);
-if(editing&&custom.length){ctx.strokeStyle='#3fffea';ctx.lineWidth=4;poly(custom);ctx.stroke()}}
-function refresh(){let average=cars.reduce((s,v)=>s+v.v,0)/(cars.length||1);$('kCars').textContent=cars.length+' xe';let s=Math.floor(time);$('kTime').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');$('kStops').textContent=events.filter(e=>e.event==='stop').length;$('kSpeed').textContent=average.toFixed(1)+' km/h';$('kRoutes').textContent=routes.length;$('kEvents').textContent=events.length;$('vehicles').innerHTML=cars.map(v=>'<tr><td>'+v.id+'</td><td>'+v.v.toFixed(1)+'</td><td>'+(v.v<5?'Dừng':'Di chuyển')+'</td></tr>').join('');$('events').textContent=events.slice(-5).reverse().map(e=>e.t.toFixed(1)+'s · '+e.vehicle_id+' · '+e.event+' '+(e.zone||'')).join('\n')||'Chưa có sự kiện.';$('events').style.whiteSpace='pre-line';}
-function frame(t){if(!last)last=t;let dt=Math.min((t-last)/1000,.05);last=t;if(playing)update(dt);draw();if(t-lastStats>250){refresh();lastStats=t}requestAnimationFrame(frame)}
-function download(name,blob){let u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1500)}
-$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'⏸ Tạm dừng':'▶ Tiếp tục'};
-$('restart').onclick=spawn;$('cars').oninput=()=>{$('carsLabel').textContent=$('cars').value;spawn()};$('speed').oninput=()=>{$('speedLabel').textContent=(+$('speed').value/10).toFixed(1)+'×'};$('dwell').oninput=()=>{$('dwellLabel').textContent=(+$('dwell').value/10).toFixed(1)+' s'};
-$('exportCSV').onclick=()=>{let rows=[['time_s','vehicle_id','event','zone','speed_kmh'],...events.map(e=>[e.t,e.vehicle_id,e.event,e.zone||'',e.speed_kmh])];download('mapvision-events.csv',new Blob(['\ufeff'+rows.map(r=>r.join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}))};
-$('exportJSON').onclick=()=>download('mapvision-analysis.json',new Blob([JSON.stringify({schema_version:1,mode:'simulation',time_s:time,coordinate_system:'normalized_screen',routes,zones,vehicles:cars.map(({id,v,route,dist,completed})=>({id,speed_kmh:v,route,dist,completed})),events},null,2)],{type:'application/json'}));
-$('exportPNG').onclick=()=>c.toBlob(b=>b&&download('mapvision-traffic.png',b),'image/png');
-$('edit').onclick=()=>{editing=!editing;if(editing){custom=[];$('edit').textContent='✓ Kết thúc tuyến';$('editNote').textContent='Nhấp ít nhất hai điểm trên bản đồ để hoàn tất tuyến mới.'}else{$('edit').textContent='＋ Thêm điểm tuyến';if(custom.length>=2){routes.push(custom);spawn()}custom=[];$('editNote').textContent='Đã hoàn tất. Có thể tiếp tục thêm tuyến.'}};
-$('undo').onclick=()=>{if(editing)custom.pop();else if(routes.length>1){routes.pop();spawn()}};
-c.addEventListener('click',e=>{if(!editing)return;let r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;if(Number.isFinite(x)&&Number.isFinite(y))custom.push([clamp(x,0,1),clamp(y,0,1)])});
-$('saveRoute').onclick=()=>download('mapvision-routes.json',new Blob([JSON.stringify({version:1,routes},null,2)],{type:'application/json'}));
-$('loadRoute').onclick=()=>$('upload').click();
-$('upload').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let d=JSON.parse(await f.text());if(!Array.isArray(d.routes)||!d.routes.length||d.routes.length>100||!d.routes.every(r=>Array.isArray(r)&&r.length>=2&&r.length<=1000&&r.every(p=>Array.isArray(p)&&p.length===2&&p.every(n=>Number.isFinite(n)&&n>=0&&n<=1))))throw Error('Tuyến không hợp lệ');routes=d.routes;spawn();$('editNote').textContent='Đã tải '+routes.length+' tuyến.'}catch(err){alert(err.message)}e.target.value=''};
-spawn();requestAnimationFrame(frame);
+const $=id=>document.getElementById(id),c=$('map'),g=c.getContext('2d'),ch=$('chart'),gc=ch.getContext('2d');const W=1200,H=800;
+const ORIGIN={lat:10.252,long:105.972},M_PER_DEG_LAT=111320,M_PER_DEG_LON=111320*Math.cos(ORIGIN.lat*Math.PI/180);
+const geo=(x,y)=>[ORIGIN.long+(x-600)/M_PER_DEG_LON,ORIGIN.lat+(400-y)/M_PER_DEG_LAT];
+const direction=['Tây → Đông','Đông → Tây','Bắc → Nam','Nam → Bắc'];
+const lanes=[
+ {a:[70,385],b:[1130,385],stop:470,axis:'ew',dir:0},
+ {a:[1130,415],b:[70,415],stop:470,axis:'ew',dir:1},
+ {a:[585,60],b:[585,740],stop:315,axis:'ns',dir:2},
+ {a:[615,740],b:[615,60],stop:315,axis:'ns',dir:3}
+];
+const length=L=>Math.hypot(L.b[0]-L.a[0],L.b[1]-L.a[1]);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const rngInit=()=>{let seed=20261014;return ()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296}};
+let random=rngInit(),cars=[],seconds=0,completed=0,passed=0,acc=0,prev=0,playing=true,history=[],samples=[],cumulativeWait=0,nextSpawn=0,nextId=1;
+const params=()=>({cap:+$('n').value,flow:+$('flow').value*( $('scenario').value==='rush'?1.7:1),cycle:+$('cycle').value,green:+$('green').value/100,speed:+$('timeScale').value});
+function phase(){let p=params(),t=seconds%p.cycle, ewGreen=p.cycle*p.green-3, yellow=3, nsGreen=p.cycle*(1-p.green)-3;return t<ewGreen?'ew':t<ewGreen+yellow?'yellow':t<ewGreen+yellow+nsGreen?'ns':'yellow'}
+function signal(axis){let ph=phase();return ph===axis?'green':ph==='yellow'?'yellow':'red'}
+function makeCar(i){let lane=i%4,L=lanes[lane];return{id:nextId++,lane,s:-9-(random()*18),v:0,v0:11+random()*5,length:4.2+random()*1.1,wait:0,hasPassed:false,trail:[]}}
+function reset(){random=rngInit();cars=[];seconds=0;completed=0;passed=0;acc=0;prev=0;history=[];samples=[];cumulativeWait=0;nextSpawn=0;nextId=1;let count=params().cap;for(let i=0;i<count;i++){let car=makeCar(i);car.s=(i/4|0)*(-17)+(random()*-6);cars.push(car)}refresh()}
+function spawn(dt){let p=params();nextSpawn+=dt*p.flow/3600;while(nextSpawn>=1&&cars.length<p.cap){let eligible=[0,1,2,3].filter(l=>!cars.some(v=>v.lane===l&&v.s<12));if(!eligible.length)break;let k=eligible[Math.floor(random()*eligible.length)],car=makeCar(k);cars.push(car);nextSpawn-=1}}
+function step(dt){seconds+=dt;spawn(dt);let byLane=[[],[],[],[]];cars.forEach(car=>byLane[car.lane].push(car));byLane.forEach(row=>row.sort((a,b)=>b.s-a.s));
+let speedFactor=$('scenario').value==='flood'?.48:1;
+for(let l=0;l<4;l++){let row=byLane[l],L=lanes[l],green=signal(L.axis)==='green';
+for(let i=0;i<row.length;i++){let car=row[i],leader=row[i-1],gap=leader?Math.max(.1,leader.s-car.s-leader.length):Infinity,delta=car.v-(leader?leader.v:car.v),target=car.v0*speedFactor;
+let stopGap=L.stop-car.s-2.5;if(!green&&stopGap>-.5&&stopGap<gap){gap=Math.max(.1,stopGap);delta=car.v}
+let desired=2.3+Math.max(0,car.v*1.4+car.v*delta/(2*Math.sqrt(1.5*2.3)));
+let braking=Number.isFinite(gap)?(desired/gap)**2:0;let a=1.5*(1-Math.pow(car.v/Math.max(target,.1),4)-braking);
+car.v=clamp(car.v+clamp(a,-4,1.5)*dt,0,target);
+let d=car.v*dt;if(leader)d=Math.min(d,Math.max(0,leader.s-car.s-leader.length-1.5));if(!green&&car.s<L.stop-2.5)d=Math.min(d,Math.max(0,L.stop-2.5-car.s));car.s+=d;
+if(car.v<.5&&car.s>=0){car.wait+=dt;cumulativeWait+=dt}
+if(!car.hasPassed&&car.s>L.stop+25){car.hasPassed=true;passed++}
+if(car.s>length(L)+15){car.done=true;completed++}
+}}
+cars=cars.filter(v=>!v.done);
+if(Math.floor(seconds/5)>history.length-1){let n=cars.length;history.push({t:seconds,v:n?cars.reduce((a,b)=>a+b.v,0)/n*3.6:0,q:cars.filter(v=>v.v<.5&&v.s>=0).length});if(history.length>120)history.shift();}
+}
+function xy(car){let L=lanes[car.lane],t=car.s/length(L);return {x:L.a[0]+(L.b[0]-L.a[0])*t,y:L.a[1]+(L.b[1]-L.a[1])*t,angle:Math.atan2(L.b[1]-L.a[1],L.b[0]-L.a[0])}}
+function drawMap(){g.fillStyle='#101b30';g.fillRect(0,0,W,H);g.fillStyle='#14283b';for(let i=0;i<9;i++)for(let j=0;j<6;j++){if(Math.abs(i-4)<1||Math.abs(j-3)<1)continue;g.fillRect(36+i*135,20+j*131,108,94)}
+if($('grid').checked){g.strokeStyle='#52718e44';g.lineWidth=1;g.font='12px monospace';g.fillStyle='#a7c3dc';for(let i=100;i<W;i+=100){g.beginPath();g.moveTo(i,0);g.lineTo(i,H);g.stroke()}for(let j=100;j<H;j+=100){g.beginPath();g.moveTo(0,j);g.lineTo(W,j);g.stroke()}for(let i=200;i<W;i+=200){g.fillText(geo(i,650)[0].toFixed(4)+'°E',i-38,H-13)}}
+g.fillStyle='#2c3545';g.fillRect(0,348,W,102);g.fillRect(548,0,104,H);g.strokeStyle='#56627b';g.lineWidth=2;for(let y of [348,450]){g.beginPath();g.moveTo(0,y);g.lineTo(W,y);g.stroke()}for(let x of [548,652]){g.beginPath();g.moveTo(x,0);g.lineTo(x,H);g.stroke()}
+g.lineWidth=2;g.setLineDash([16,12]);g.strokeStyle='#d9e2e584';for(let y of [399]){g.beginPath();g.moveTo(0,y);g.lineTo(548,y);g.moveTo(652,y);g.lineTo(W,y);g.stroke()}for(let x of [600]){g.beginPath();g.moveTo(x,0);g.lineTo(x,348);g.moveTo(x,450);g.lineTo(x,H);g.stroke()}g.setLineDash([]);
+const ph=phase();for(let [axis,x,y] of [['ew',525,363],['ew',671,437],['ns',564,464],['ns',637,333]]){let sig=signal(axis);g.fillStyle=sig==='green'?'#55e8a3':sig==='yellow'?'#ffcc61':'#ff5d79';g.shadowColor=g.fillStyle;g.shadowBlur=15;g.beginPath();g.arc(x,y,8,0,Math.PI*2);g.fill();g.shadowBlur=0}
+g.fillStyle='#f2f6ff';g.textAlign='center';g.font='bold 19px system-ui';g.fillText('MAPVISION · NÚT GIAO GIẢ ĐỊNH',W/2,30);g.font='12px system-ui';g.fillText('VĨNH LONG · TỌA ĐỘ MẪU WGS84',W/2,48);g.textAlign='left';g.font='bold 17px system-ui';g.fillText('BẮC ↑',W-99,88);
+if($('points').checked){g.strokeStyle='#ffb265';g.lineWidth=2;g.strokeRect(545,345,110,110);g.fillStyle='#ffc47b';g.font='13px system-ui';g.fillText('NÚT A',665,345)}
+for(let car of cars){let p=xy(car);if(p.x<-30||p.x>W+30||p.y<-30||p.y>H+30)continue;let col=car.v<.5?'#ffb951':'#42e7f3';if($('trail').checked){car.trail.push([p.x,p.y]);if(car.trail.length>14)car.trail.shift();g.beginPath();car.trail.forEach(([x,y],i)=>i?g.lineTo(x,y):g.moveTo(x,y));g.strokeStyle=car.v<.5?'#ffb95166':'#42e7f36b';g.lineWidth=3;g.stroke()}g.save();g.translate(p.x,p.y);g.rotate(p.angle);g.shadowColor=col;g.shadowBlur=10;g.fillStyle=col;g.beginPath();g.roundRect(-9,-5,18,10,3);g.fill();g.shadowBlur=0;g.fillStyle='#f6ffff';g.fillRect(5,-3,2,6);g.restore();if($('ids').checked){g.fillStyle='#e5f7ff';g.font='11px monospace';g.fillText(car.id,p.x+12,p.y-8)}}
+g.fillStyle='#b7cbe2';g.font='13px system-ui';g.fillText('Mô phỏng · Không phải vị trí đường thực',18,H-18)}
+function chart(){gc.clearRect(0,0,ch.width,ch.height);gc.fillStyle='#0c192b';gc.fillRect(0,0,ch.width,ch.height);gc.strokeStyle='#365171';gc.beginPath();gc.moveTo(35,18);gc.lineTo(35,190);gc.lineTo(1055,190);gc.stroke();gc.fillStyle='#b4c8df';gc.font='15px system-ui';gc.fillText('Tốc độ (km/h)',48,20);gc.fillText('Hàng chờ (xe)',600,20);if(history.length<2)return;let max=Math.max(20,...history.map(h=>h.v),...history.map(h=>h.q));for(let [key,color] of [['v','#49e3e8'],['q','#f5b15c']]){gc.strokeStyle=color;gc.lineWidth=3;gc.beginPath();history.forEach((h,i)=>{let x=38+i/(Math.max(119,history.length-1))*1005,y=184-h[key]/max*145;i?gc.lineTo(x,y):gc.moveTo(x,y)});gc.stroke()}}
+function refresh(){let n=cars.length,avg=n?cars.reduce((a,b)=>a+b.v,0)/n*3.6:0,q=cars.filter(v=>v.v<.5&&v.s>=0).length;$('kN').textContent=n;$('kV').textContent=avg.toFixed(1)+' km/h';$('kQ').textContent=q;$('kPassed').textContent=passed;$('complete').textContent=completed;$('wait').textContent=cumulativeWait.toFixed(0)+' s';$('density').textContent=(n/4.24).toFixed(1)+' xe/km';$('kTime').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(Math.floor(seconds%60)).padStart(2,'0');$('sigEW').textContent=signal('ew').toUpperCase();$('sigNS').textContent=signal('ns').toUpperCase();$('rows').innerHTML=cars.slice(0,18).map(v=>'<tr><td>XE-'+v.id+'</td><td>'+(v.v*3.6).toFixed(1)+'</td><td>'+direction[v.lane]+'</td></tr>').join('');chart()}
+function animate(now){if(!prev)prev=now;let dt=Math.min((now-prev)/1000,.2);prev=now;if(playing){acc+=dt*params().speed;let limit=0;while(acc>=.1&&limit++<20){step(.1);acc-=.1}}drawMap();if((now|0)%5===0||now-lastUI>250){refresh();lastUI=now}requestAnimationFrame(animate)}let lastUI=0;
+const download=(name,content,type)=>{let blob=content instanceof Blob?content:new Blob([content],{type}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1200)};
+function features(){return lanes.map((lane,i)=>({type:'Feature',properties:{id:'road-'+(i+1),axis:lane.axis,simulated:true,units:'local_meters'},geometry:{type:'LineString',coordinates:[geo(...lane.a),geo(...lane.b)]}}))}
+$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'⏸ Tạm dừng':'▶ Tiếp tục'};$('reset').onclick=reset;
+for(let [id,textId,fmt] of [['n','nText',v=>v+' xe'],['flow','flowText',v=>v+' xe/giờ'],['cycle','cycleText',v=>v+' giây'],['green','greenText',v=>v+'%']]){$(id).oninput=()=>{$(textId).textContent=fmt($(id).value)}}
+$('n').onchange=reset;$('scenario').onchange=reset;
+$('csv').onclick=()=>{let fields=['id','lane','distance_m','speed_kmh','waiting_s','longitude','latitude'],rows=[fields.join(',')];for(let v of cars){let p=xy(v);rows.push([v.id,v.lane,v.s.toFixed(2),(v.v*3.6).toFixed(2),v.wait.toFixed(2),...geo(p.x,p.y).map(n=>n.toFixed(7))].join(','))}download('mapvision_vehicles.csv','\ufeff'+rows.join('\r\n'),'text/csv;charset=utf-8')};
+$('geojson').onclick=()=>download('mapvision_roads.geojson',JSON.stringify({type:'FeatureCollection',properties:{simulated:true,origin:ORIGIN,crs:'EPSG:4326'},features:features()},null,2),'application/geo+json');
+$('json').onclick=()=>download('mapvision_run.json',JSON.stringify({metadata:{author:'Long Ngo',license:'MIT',mode:'synthetic',coordinate_system:'EPSG:4326 synthetic',seed:20261014},seconds,params:params(),scenario:$('scenario').value,counters:{passed,completed,cumulativeWait},history,vehicles:cars.map(v=>({...v,trail:undefined})),roads:features()},null,2),'application/json');
+$('png').onclick=()=>c.toBlob(b=>b&&download('mapvision.png',b,'image/png'));
+$('report').onclick=()=>{let q=cars.filter(v=>v.v<.5).length,avg=cars.length?cars.reduce((a,b)=>a+b.v,0)/cars.length*3.6:0;download('mapvision_report.txt',['MAPVISION TRAFFIC LAB','Long Ngo · MIT 2026','Synthetic dataset - NOT actual observations','Simulation seconds: '+seconds.toFixed(1),'Vehicles: '+cars.length,'Mean speed km/h: '+avg.toFixed(2),'Queue: '+q,'Passed node: '+passed,'Completed: '+completed,'Cumulative vehicle wait s: '+cumulativeWait.toFixed(1),'Scenario: '+$('scenario').value].join('\n'),'text/plain;charset=utf-8')};
+c.addEventListener('pointermove',e=>{let r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*W,y=(e.clientY-r.top)/r.height*H;let p=geo(x,y);$('hover').textContent=p[1].toFixed(6)+'°N, '+p[0].toFixed(6)+'°E · DỮ LIỆU GIẢ ĐỊNH'});
+reset();requestAnimationFrame(animate);
 </script></body></html>
